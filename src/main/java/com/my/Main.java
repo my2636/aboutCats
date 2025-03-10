@@ -14,20 +14,20 @@ import java.util.List;
 
 public class Main {
     public static void main(String[] args) throws IOException {
-        CloseableHttpClient httpClient = HttpClientBuilder.create()
+        try (CloseableHttpClient httpClient = HttpClientBuilder.create()
                 .setDefaultRequestConfig(RequestConfig.custom()
                         .setConnectTimeout(5000)    // максимальное время ожидание подключения к серверу
                         .setSocketTimeout(30000)    // максимальное время ожидания получения данных
                         .setRedirectsEnabled(false) // возможность следовать редиректу в ответе
                         .build())
-                .build();
+                .build()) {
+            HttpGet request = new HttpGet("https://raw.githubusercontent.com/netology-code/jd-homeworks/master/http/task1/cats");
+            CloseableHttpResponse response = httpClient.execute(request);
 
-        HttpGet request = new HttpGet("https://raw.githubusercontent.com/netology-code/jd-homeworks/master/http/task1/cats");
-        CloseableHttpResponse response = httpClient.execute(request);
-        httpClient.close();
-        ObjectMapper objectMapper = new ObjectMapper();
-        List<Fact> facts = objectMapper.readValue(response.getEntity().getContent(), new TypeReference<>() {});
-        List<Fact> upvotedFacts = facts.stream().filter(x -> x.getUpvotes() != null && x.getUpvotes() > 0).toList();
-        upvotedFacts.forEach(System.out::println);
+            ObjectMapper objectMapper = new ObjectMapper();
+            List<Fact> facts = objectMapper.readValue(response.getEntity().getContent(), new TypeReference<>() {});
+            List<Fact> upvotedFacts = facts.stream().filter(x -> x.getUpvotes() != null && x.getUpvotes() > 0).toList();
+            upvotedFacts.forEach(System.out::println);
+        }
     }
 }
