@@ -24,6 +24,7 @@ public class Main {
 
         HttpGet request = new HttpGet("https://raw.githubusercontent.com/netology-code/jd-homeworks/master/http/task1/cats");
         CloseableHttpResponse response = httpClient.execute(request);
+        httpClient.close();
         ObjectMapper objectMapper = new ObjectMapper();
         List<Fact> facts = objectMapper.readValue(response.getEntity().getContent(), new TypeReference<>() {});
         List<Fact> upvotedFacts = facts.stream().filter(x -> x.getUpvotes() != null && x.getUpvotes() > 0).toList();
