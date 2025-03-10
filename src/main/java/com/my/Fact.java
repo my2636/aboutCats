@@ -3,11 +3,11 @@ package com.my;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class Fact {
-    String id;
-    String text;
-    String type;
-    String user;
-    int upvotes;
+    private String id;
+    private String text;
+    private String type;
+    private String user;
+    private int upvotes;
 
     public Fact(
             @JsonProperty("id") String id,
