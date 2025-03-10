@@ -10,7 +10,6 @@ import org.apache.http.impl.client.HttpClientBuilder;
 
 import java.io.IOException;
 import java.util.List;
-import java.util.Objects;
 
 
 public class Main {
@@ -27,7 +26,7 @@ public class Main {
         CloseableHttpResponse response = httpClient.execute(request);
         ObjectMapper objectMapper = new ObjectMapper();
         List<Fact> facts = objectMapper.readValue(response.getEntity().getContent(), new TypeReference<>() {});
-        List<Fact> upvotedFacts = facts.stream().filter(Objects::nonNull).toList();
+        List<Fact> upvotedFacts = facts.stream().filter(x -> x.getUpvotes() != null && x.getUpvotes() > 0).toList();
         upvotedFacts.forEach(System.out::println);
     }
 }

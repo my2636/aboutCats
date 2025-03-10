@@ -7,14 +7,14 @@ public class Fact {
     private String text;
     private String type;
     private String user;
-    private int upvotes;
+    private Integer upvotes;
 
     public Fact(
             @JsonProperty("id") String id,
             @JsonProperty("text") String text,
             @JsonProperty("type") String type,
             @JsonProperty("user") String user,
-            @JsonProperty("upvotes") int upvotes
+            @JsonProperty("upvotes") Integer upvotes
     ) {
 
         this.id = id;
@@ -40,7 +40,7 @@ public class Fact {
         return user;
     }
 
-    public int getUpvotes() {
+    public Integer getUpvotes() {
         return upvotes;
     }
 
